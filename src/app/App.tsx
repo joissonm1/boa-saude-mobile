@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Login } from './components/Login';
 import { Home } from './components/Home';
 import { Prescriptions } from './components/Prescriptions';
@@ -13,6 +13,15 @@ type AppointmentType = 'virtual' | 'physical' | null;
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
   const [appointmentModal, setAppointmentModal] = useState<AppointmentType>(null);
+  const [hue, setHue] = useState<number>(() => {
+    const saved = localStorage.getItem('theme-hue');
+    return saved ? parseInt(saved, 10) : 235;
+  });
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--hue', hue.toString());
+    localStorage.setItem('theme-hue', hue.toString());
+  }, [hue]);
 
   const handleLogin = () => {
     setCurrentScreen('home');
@@ -37,7 +46,7 @@ export default function App() {
   return (
     <div className="relative">
       {/* Mobile container */}
-      <div className="max-w-md mx-auto bg-white min-h-screen shadow-2xl relative">
+      <div className="max-w-md mx-auto bg-background min-h-screen shadow-2xl relative">
         {currentScreen === 'login' && <Login onLogin={handleLogin} />}
         
         {currentScreen === 'home' && (
@@ -55,6 +64,8 @@ export default function App() {
           <Profile
             onBack={() => setCurrentScreen('home')}
             onLogout={handleLogout}
+            hue={hue}
+            onHueChange={setHue}
           />
         )}
 

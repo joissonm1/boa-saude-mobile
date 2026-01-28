@@ -53,18 +53,18 @@ export function MapView({ onLocationSelect }: MapViewProps) {
               <div className="p-2">
                 <div className="flex items-center gap-2 mb-2">
                   {location.type === 'hospital' ? (
-                    <Hospital className="w-5 h-5 text-teal-600" />
+                    <Hospital className="w-5 h-5 text-primary" />
                   ) : (
-                    <Pill className="w-5 h-5 text-cyan-600" />
+                    <Pill className="w-5 h-5 text-secondary-foreground" />
                   )}
-                  <h3 className="font-semibold">{location.name}</h3>
+                  <h3 className="font-semibold text-foreground">{location.name}</h3>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   {location.type === 'hospital' ? 'Hospital' : 'Farmácia'}
                 </p>
                 <button
                   onClick={() => onLocationSelect?.(location)}
-                  className="mt-2 w-full bg-teal-500 text-white py-1 px-3 rounded-lg text-sm hover:bg-teal-600"
+                  className="mt-2 w-full bg-primary text-primary-foreground py-1 px-3 rounded-lg text-sm hover:opacity-90 transition-opacity"
                 >
                   Ver Detalhes
                 </button>

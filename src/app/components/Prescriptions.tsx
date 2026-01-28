@@ -43,9 +43,9 @@ const prescriptions = [
 
 export function Prescriptions({ onBack }: PrescriptionsProps) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white p-6 rounded-b-3xl shadow-lg">
+      <div className="bg-primary text-primary-foreground p-6 rounded-b-3xl shadow-lg">
         <div className="flex items-center gap-4 mb-4">
           <button
             onClick={onBack}
@@ -55,7 +55,7 @@ export function Prescriptions({ onBack }: PrescriptionsProps) {
           </button>
           <div>
             <h1 className="text-2xl font-bold">Minhas Receitas</h1>
-            <p className="text-teal-100 text-sm mt-1">Histórico de prescrições médicas</p>
+            <p className="text-primary-foreground/80 text-sm mt-1">Histórico de prescrições médicas</p>
           </div>
         </div>
       </div>
@@ -64,31 +64,31 @@ export function Prescriptions({ onBack }: PrescriptionsProps) {
         {prescriptions.map((prescription) => (
           <div
             key={prescription.id}
-            className="bg-white rounded-2xl shadow-md overflow-hidden"
+            className="bg-card rounded-2xl shadow-md overflow-hidden border border-border"
           >
             {/* Prescription Header */}
-            <div className="bg-gradient-to-r from-teal-50 to-cyan-50 p-4 border-b-2 border-teal-100">
+            <div className="bg-primary/5 p-4 border-b border-border">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex gap-3">
-                  <div className="bg-teal-100 p-2 rounded-xl">
-                    <User className="w-5 h-5 text-teal-600" />
+                  <div className="bg-primary/10 p-2 rounded-xl">
+                    <User className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800">
+                    <h3 className="font-semibold text-foreground">
                       {prescription.doctor}
                     </h3>
-                    <p className="text-sm text-gray-500">{prescription.specialty}</p>
+                    <p className="text-sm text-muted-foreground">{prescription.specialty}</p>
                   </div>
                 </div>
                 <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
                   prescription.status === 'dispensed'
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-orange-100 text-orange-700'
+                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                    : 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
                 }`}>
                   {prescription.status === 'dispensed' ? 'Dispensado' : 'Pendente'}
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Calendar className="w-4 h-4" />
                 <span>{prescription.date}</span>
               </div>
@@ -96,17 +96,17 @@ export function Prescriptions({ onBack }: PrescriptionsProps) {
 
             {/* Medications */}
             <div className="p-4 space-y-3">
-              <h4 className="font-semibold text-gray-700 flex items-center gap-2">
-                <FileText className="w-4 h-4" />
+              <h4 className="font-semibold text-foreground flex items-center gap-2">
+                <FileText className="w-4 h-4 text-primary" />
                 Medicamentos
               </h4>
               {prescription.medications.map((med, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 rounded-xl p-3 border-2 border-gray-100"
+                  className="bg-muted/30 rounded-xl p-3 border border-border"
                 >
-                  <h5 className="font-semibold text-gray-800">{med.name}</h5>
-                  <div className="mt-2 space-y-1 text-sm text-gray-600">
+                  <h5 className="font-semibold text-foreground">{med.name}</h5>
+                  <div className="mt-2 space-y-1 text-sm text-muted-foreground">
                     <p>💊 Dosagem: {med.dosage}</p>
                     <p>⏰ Duração: {med.duration}</p>
                   </div>
@@ -116,43 +116,34 @@ export function Prescriptions({ onBack }: PrescriptionsProps) {
 
             {/* Pharmacy Info */}
             {prescription.pharmacy && (
-              <div className="p-4 bg-green-50 border-t-2 border-green-100">
-                <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="w-4 h-4 text-green-600" />
-                  <span className="text-gray-700">
-                    Dispensado em: <span className="font-semibold">{prescription.pharmacy}</span>
-                  </span>
+              <div className="p-4 bg-primary/5 border-t border-border">
+                <div className="flex items-center gap-2 text-sm text-foreground">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span>Retirado em: <span className="font-semibold">{prescription.pharmacy}</span></span>
                 </div>
               </div>
             )}
 
             {/* Actions */}
-            <div className="p-4 border-t-2 border-gray-100 flex gap-3">
-              <button className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-2 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transform hover:scale-105 transition-all">
-                <Download className="w-4 h-4" />
-                Download PDF
+            <div className="p-4 bg-muted/20 flex gap-2">
+              <button className="flex-1 flex items-center justify-center gap-2 py-2 bg-primary text-primary-foreground rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap overflow-hidden">
+                <Download className="w-4 h-4 flex-shrink-0" />
+                <span>Download PDF</span>
               </button>
-              {prescription.status === 'pending' && (
-                <button className="flex-1 bg-orange-500 text-white py-2 rounded-xl font-semibold hover:bg-orange-600 transition-colors">
-                  Buscar na Farmácia
-                </button>
-              )}
+              <button className="flex-1 py-2 border border-border text-foreground rounded-xl text-sm font-semibold hover:bg-muted/30 transition-colors whitespace-nowrap overflow-hidden">
+                Ver QR Code
+              </button>
             </div>
           </div>
         ))}
 
-        {/* Empty State or Summary */}
-        {prescriptions.length === 0 && (
-          <div className="bg-white rounded-2xl shadow-md p-8 text-center">
-            <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              Nenhuma receita encontrada
-            </h3>
-            <p className="text-gray-500">
-              Suas receitas médicas aparecerão aqui após as consultas.
-            </p>
-          </div>
-        )}
+        <div className="bg-primary/10 rounded-2xl p-6 text-center border-2 border-dashed border-primary/30">
+          <p className="text-primary font-medium">Tem uma receita física?</p>
+          <p className="text-xs text-muted-foreground mt-1 mb-4">Escaneie para adicionar ao seu histórico digital</p>
+          <button className="bg-primary text-primary-foreground px-6 py-2 rounded-xl font-semibold hover:shadow-lg transition-all">
+            Escanear Receita
+          </button>
+        </div>
       </div>
     </div>
   );

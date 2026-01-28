@@ -38,9 +38,9 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full sm:max-w-2xl sm:rounded-3xl rounded-t-3xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-card w-full sm:max-w-2xl sm:rounded-3xl rounded-t-3xl max-h-[90vh] overflow-y-auto border border-border/50 shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-teal-500 to-cyan-500 text-white p-6 flex justify-between items-center">
+        <div className="sticky top-0 bg-primary text-primary-foreground p-6 flex justify-between items-center shadow-lg">
           <div className="flex items-center gap-3">
             {type === 'virtual' ? (
               <Video className="w-6 h-6" />
@@ -51,7 +51,7 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
               <h2 className="text-xl font-bold">
                 Consulta {type === 'virtual' ? 'Virtual' : 'Presencial'}
               </h2>
-              <p className="text-sm text-teal-100">
+              <p className="text-sm text-primary-foreground/80">
                 {step === 'select' && 'Escolha um médico'}
                 {step === 'schedule' && 'Escolha data e horário'}
                 {step === 'map' && 'Escolha o hospital'}
@@ -81,16 +81,16 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
                       setStep('schedule');
                     }
                   }}
-                  className={`w-full p-4 border-2 rounded-xl flex items-center gap-4 hover:border-teal-500 transition-colors ${
-                    selectedDoctor === doctor.id ? 'border-teal-500 bg-teal-50' : 'border-gray-200'
+                  className={`w-full p-4 border-2 rounded-xl flex items-center gap-4 hover:border-primary/50 transition-colors ${
+                    selectedDoctor === doctor.id ? 'border-primary bg-primary/5' : 'border-border'
                   }`}
                 >
                   <div className="text-4xl">{doctor.image}</div>
                   <div className="text-left flex-1">
-                    <h3 className="font-semibold text-gray-800">{doctor.name}</h3>
-                    <p className="text-sm text-gray-500">{doctor.specialty}</p>
+                    <h3 className="font-semibold text-foreground">{doctor.name}</h3>
+                    <p className="text-sm text-muted-foreground">{doctor.specialty}</p>
                   </div>
-                  <div className="bg-teal-100 text-teal-600 px-3 py-1 rounded-lg text-sm font-medium">
+                  <div className="bg-primary/10 text-primary px-3 py-1 rounded-lg text-sm font-medium">
                     Disponível
                   </div>
                 </button>
@@ -101,11 +101,11 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
           {/* Step 2: Show Map for Physical */}
           {step === 'map' && type === 'physical' && (
             <div className="space-y-4">
-              <div className="h-64 rounded-2xl overflow-hidden">
+              <div className="h-64 rounded-2xl overflow-hidden border border-border">
                 <MapView />
               </div>
               <div className="space-y-2">
-                <h3 className="font-semibold text-gray-800">Hospitais Próximos</h3>
+                <h3 className="font-semibold text-foreground">Hospitais Próximos</h3>
                 {hospitals.map((hospital) => (
                   <button
                     key={hospital.id}
@@ -113,16 +113,16 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
                       setSelectedHospital(hospital.id);
                       setStep('schedule');
                     }}
-                    className={`w-full p-4 border-2 rounded-xl text-left hover:border-teal-500 transition-colors ${
-                      selectedHospital === hospital.id ? 'border-teal-500 bg-teal-50' : 'border-gray-200'
+                    className={`w-full p-4 border-2 rounded-xl text-left hover:border-primary/50 transition-colors ${
+                      selectedHospital === hospital.id ? 'border-primary bg-primary/5' : 'border-border'
                     }`}
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="font-semibold text-gray-800">{hospital.name}</h4>
-                        <p className="text-sm text-gray-500 mt-1">{hospital.address}</p>
+                        <h4 className="font-semibold text-foreground">{hospital.name}</h4>
+                        <p className="text-sm text-muted-foreground mt-1">{hospital.address}</p>
                       </div>
-                      <div className="flex items-center gap-1 text-sm text-gray-600">
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
                         <MapPin className="w-4 h-4" />
                         <span>{hospital.distance}</span>
                       </div>
@@ -137,7 +137,7 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
           {step === 'schedule' && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   <Calendar className="w-4 h-4 inline mr-2" />
                   Selecione a Data
                 </label>
@@ -146,12 +146,12 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-teal-500 focus:outline-none"
+                  className="w-full p-3 border-2 border-border rounded-xl focus:border-primary focus:outline-none bg-background text-foreground"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   <Clock className="w-4 h-4 inline mr-2" />
                   Selecione o Horário
                 </label>
@@ -162,8 +162,8 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
                       onClick={() => setSelectedTime(time)}
                       className={`p-3 rounded-xl border-2 transition-all ${
                         selectedTime === time
-                          ? 'border-teal-500 bg-teal-50 text-teal-600 font-semibold'
-                          : 'border-gray-200 hover:border-teal-300'
+                          ? 'border-primary bg-primary text-primary-foreground font-semibold shadow-md'
+                          : 'border-border hover:border-primary/30 text-foreground bg-background'
                       }`}
                     >
                       {time}
@@ -173,11 +173,11 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
               </div>
 
               {type === 'virtual' && selectedDate && selectedTime && (
-                <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-4">
-                  <h4 className="font-semibold text-purple-800 mb-2">
+                <div className="bg-secondary/20 border-2 border-secondary/50 rounded-xl p-4">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Link da Consulta Virtual
                   </h4>
-                  <p className="text-sm text-purple-600">
+                  <p className="text-sm text-muted-foreground">
                     O link da videochamada será enviado por email e SMS 1 hora antes da consulta.
                   </p>
                 </div>
@@ -186,14 +186,14 @@ export function AppointmentModal({ type, onClose }: AppointmentModalProps) {
               <div className="flex gap-3">
                 <button
                   onClick={() => type === 'physical' ? setStep('map') : setStep('select')}
-                  className="flex-1 py-3 border-2 border-gray-200 rounded-xl font-semibold hover:bg-gray-50"
+                  className="flex-1 py-3 border-2 border-border rounded-xl font-semibold hover:bg-muted/30 text-foreground transition-colors"
                 >
                   Voltar
                 </button>
                 <button
                   onClick={handleConfirm}
                   disabled={!selectedDate || !selectedTime}
-                  className="flex-1 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="flex-1 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-md"
                 >
                   Confirmar
                 </button>
