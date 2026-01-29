@@ -1,4 +1,4 @@
-import { ArrowLeft, FileText, Calendar, User, Download, MapPin } from 'lucide-react';
+import { ArrowLeft, FileText, Calendar, User, Download, MapPin, Pill, Clock } from 'lucide-react';
 
 interface PrescriptionsProps {
   onBack: () => void;
@@ -107,8 +107,8 @@ export function Prescriptions({ onBack }: PrescriptionsProps) {
                 >
                   <h5 className="font-semibold text-foreground">{med.name}</h5>
                   <div className="mt-2 space-y-1 text-sm text-muted-foreground">
-                    <p>💊 Dosagem: {med.dosage}</p>
-                    <p>⏰ Duração: {med.duration}</p>
+                    <p className="flex items-center gap-1"><Pill className="w-4 h-4" /> Dosagem: {med.dosage}</p>
+                    <p className="flex items-center gap-1"><Clock className="w-4 h-4" /> Duração: {med.duration}</p>
                   </div>
                 </div>
               ))}

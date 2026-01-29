@@ -1,15 +1,6 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Hospital, Pill } from 'lucide-react';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+'use client';
 
-// Fix for default marker icons
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-});
+import dynamic from 'next/dynamic';
 
 const hospitals = [
   { id: 1, name: 'Hospital Central', lat: -8.8137, lng: 13.2302, type: 'hospital' },
@@ -29,50 +20,18 @@ interface MapViewProps {
   onLocationSelect?: (location: any) => void;
 }
 
+// Dynamically import the map component with no SSR
+const MapContent = dynamic(() => import('@/components/MapContent'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full rounded-2xl overflow-hidden shadow-lg bg-muted flex items-center justify-center">
+      <span className="text-muted-foreground">Carregando mapa...</span>
+    </div>
+  ),
+});
+
 export function MapView({ onLocationSelect }: MapViewProps) {
   return (
-    <div className="w-full h-full rounded-2xl overflow-hidden shadow-lg">
-      <MapContainer
-        center={[-8.8137, 13.2302]}
-        zoom={13}
-        style={{ height: '100%', width: '100%' }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {locations.map((location) => (
-          <Marker
-            key={location.id}
-            position={[location.lat, location.lng]}
-            eventHandlers={{
-              click: () => onLocationSelect?.(location),
-            }}
-          >
-            <Popup>
-              <div className="p-2">
-                <div className="flex items-center gap-2 mb-2">
-                  {location.type === 'hospital' ? (
-                    <Hospital className="w-5 h-5 text-primary" />
-                  ) : (
-                    <Pill className="w-5 h-5 text-secondary-foreground" />
-                  )}
-                  <h3 className="font-semibold text-foreground">{location.name}</h3>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {location.type === 'hospital' ? 'Hospital' : 'Farmácia'}
-                </p>
-                <button
-                  onClick={() => onLocationSelect?.(location)}
-                  className="mt-2 w-full bg-primary text-primary-foreground py-1 px-3 rounded-lg text-sm hover:opacity-90 transition-opacity"
-                >
-                  Ver Detalhes
-                </button>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
+    <MapContent locations={locations} onLocationSelect={onLocationSelect} />
   );
 }

@@ -12,7 +12,9 @@ import {
   Clock,
   Lightbulb,
   MessageSquare,
-  Plus
+  Plus,
+  Wallet,
+  Pill
 } from 'lucide-react';
 import { Chatbot } from './Chatbot';
 
@@ -82,29 +84,50 @@ export function Home({ onNavigate, onShowAppointmentModal }: HomeProps) {
         {/* Quick Actions */}
         <div className="grid grid-cols-4 gap-3 mt-6">
           <button
+            onClick={() => onNavigate('booking')}
+            className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105"
+          >
+            <Calendar className="w-6 h-6 mx-auto mb-1" />
+            <span className="text-xs block">Agendar</span>
+          </button>
+          <button
             onClick={() => onShowAppointmentModal('virtual')}
             className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105"
           >
             <Video className="w-6 h-6 mx-auto mb-1" />
-            <span className="text-xs block">Virtual</span>
+            <span className="text-xs block">Videochamada</span>
           </button>
           <button
-            onClick={() => onShowAppointmentModal('physical')}
-            className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105"
-          >
-            <Hospital className="w-6 h-6 mx-auto mb-1" />
-            <span className="text-xs block">Presencial</span>
-          </button>
-          <button
-            onClick={() => onNavigate('prescriptions')}
+            onClick={() => onNavigate('prescriptions-new')}
             className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105"
           >
             <FileText className="w-6 h-6 mx-auto mb-1" />
             <span className="text-xs block">Receitas</span>
           </button>
-          <button className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105">
-            <MapPin className="w-6 h-6 mx-auto mb-1" />
-            <span className="text-xs block">Locais</span>
+          <button 
+            onClick={() => onNavigate('wallet')}
+            className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105"
+          >
+            <Wallet className="w-6 h-6 mx-auto mb-1" />
+            <span className="text-xs block">Carteira</span>
+          </button>
+        </div>
+
+        {/* Secondary Actions */}
+        <div className="mt-3 flex gap-3">
+          <button
+            onClick={() => onNavigate('clinics')}
+            className="flex-1 bg-white/10 backdrop-blur-lg px-4 py-3 rounded-xl hover:bg-white/20 transition-all flex items-center justify-center gap-2"
+          >
+            <Hospital className="w-5 h-5" />
+            <span className="text-sm font-medium">Clínicas</span>
+          </button>
+          <button
+            onClick={() => onNavigate('pharmacies')}
+            className="flex-1 bg-white/10 backdrop-blur-lg px-4 py-3 rounded-xl hover:bg-white/20 transition-all flex items-center justify-center gap-2"
+          >
+            <Pill className="w-5 h-5" />
+            <span className="text-sm font-medium">Farmácias</span>
           </button>
         </div>
       </div>
@@ -185,7 +208,7 @@ export function Home({ onNavigate, onShowAppointmentModal }: HomeProps) {
           </div>
 
           <button
-            onClick={() => onShowAppointmentModal('virtual')}
+            onClick={() => onNavigate('booking')}
             className="w-full mt-4 bg-primary text-primary-foreground py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transform hover:scale-105 transition-all shadow-md"
           >
             <Plus className="w-5 h-5" />

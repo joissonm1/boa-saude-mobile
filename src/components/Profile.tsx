@@ -69,8 +69,8 @@ export function Profile({ onBack, onLogout, hue, onHueChange }: ProfileProps) {
         {/* Profile Avatar */}
         <div className="flex flex-col items-center">
           <div className="relative">
-            <div className="w-24 h-24 bg-background rounded-full flex items-center justify-center text-5xl shadow-lg border-2 border-primary-foreground/20">
-              👤
+            <div className="w-24 h-24 bg-background rounded-full flex items-center justify-center shadow-lg border-2 border-primary-foreground/20">
+              <User className="w-12 h-12 text-primary" />
             </div>
             <button className="absolute bottom-0 right-0 bg-secondary text-secondary-foreground p-2 rounded-full shadow-lg hover:bg-secondary/90 border border-border">
               <Edit className="w-4 h-4" />

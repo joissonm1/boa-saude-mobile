@@ -8,9 +8,9 @@ interface AppointmentModalProps {
 }
 
 const doctors = [
-  { id: 1, name: 'Dr. João Silva', specialty: 'Cardiologia', image: '👨‍⚕️' },
-  { id: 2, name: 'Dra. Maria Santos', specialty: 'Dermatologia', image: '👩‍⚕️' },
-  { id: 3, name: 'Dr. Pedro Costa', specialty: 'Ortopedia', image: '👨‍⚕️' },
+  { id: 1, name: 'Dr. João Silva', specialty: 'Cardiologia', image: '' },
+  { id: 2, name: 'Dra. Maria Santos', specialty: 'Dermatologia', image: '' },
+  { id: 3, name: 'Dr. Pedro Costa', specialty: 'Ortopedia', image: '' },
 ];
 
 const timeSlots = [
