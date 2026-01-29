@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import { Mail, Lock } from 'lucide-react';
-import logo from '@/logo/logo.png';
 
 interface LoginProps {
   onLogin: () => void;
@@ -21,7 +21,15 @@ export function Login({ onLogin }: LoginProps) {
         <div className="bg-card rounded-3xl shadow-2xl p-8 border border-border">
           <div className="flex flex-col items-center mb-8">
             <div className="mb-4">
-              <img src={logo} alt="Boa Saúde Logo" className="w-20 h-20 object-contain" />
+              <div className="w-20 h-20 relative">
+                <Image 
+                  src="/logo/logo.png" 
+                  alt="Boa Saúde Logo" 
+                  width={80} 
+                  height={80} 
+                  className="object-contain"
+                />
+              </div>
             </div>
             <h1 className="text-3xl font-extrabold text-foreground">Boa Saúde</h1>
             <p className="text-muted-foreground mt-2">Cuidando da sua saúde</p>

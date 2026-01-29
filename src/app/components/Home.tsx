@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import { MapView } from './MapView';
 import {
   Calendar,
@@ -14,7 +15,6 @@ import {
   Plus
 } from 'lucide-react';
 import { Chatbot } from './Chatbot';
-import logo from '@/logo/logo.png';
 
 interface HomeProps {
   onNavigate: (screen: string) => void;
@@ -51,7 +51,15 @@ export function Home({ onNavigate, onShowAppointmentModal }: HomeProps) {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-3">
             <div className="bg-white/20 p-1 rounded-lg">
-              <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
+              <div className="w-10 h-10 relative">
+                <Image 
+                  src="/logo/logo.png" 
+                  alt="Logo" 
+                  width={40} 
+                  height={40} 
+                  className="object-contain"
+                />
+              </div>
             </div>
             <div>
               <h1 className="text-2xl font-bold">Olá, Paciente!</h1>
