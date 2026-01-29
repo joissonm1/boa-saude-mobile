@@ -95,7 +95,7 @@ export function Home({ onNavigate, onShowAppointmentModal }: HomeProps) {
             className="bg-white/20 backdrop-blur-lg p-3 rounded-xl hover:bg-white/30 transition-all transform hover:scale-105"
           >
             <Video className="w-6 h-6 mx-auto mb-1" />
-            <span className="text-xs block">Videochamada</span>
+            <span className="text-xs block">Teleconsulta</span>
           </button>
           <button
             onClick={() => onNavigate('prescriptions-new')}

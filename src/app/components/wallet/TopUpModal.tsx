@@ -119,7 +119,7 @@ export function TopUpModal({ onClose, onConfirm, initialAmount }: TopUpModalProp
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">
-                    R$
+                    Kz
                   </span>
                   <input
                     type="number"
@@ -132,7 +132,7 @@ export function TopUpModal({ onClose, onConfirm, initialAmount }: TopUpModalProp
                   />
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Mínimo R$ 10,00 • Máximo R$ 1.000,00
+                  Mínimo Kz 10,00 • Máximo Kz 1.000,00
                 </p>
               </div>
 
