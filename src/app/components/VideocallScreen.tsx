@@ -1,5 +1,7 @@
-import { ArrowLeft, Video, Clock, User, Calendar, Phone } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, Video, Clock, User, Calendar, Phone, ExternalLink } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { webrtcService } from '@/services/webrtc';
+import { VideoCallRoom } from './VideoCallRoom';
 
 interface VideocallScreenProps {
   onBack: () => void;
@@ -47,13 +49,40 @@ const mockScheduledCalls: ScheduledCall[] = [
 
 export function VideocallScreen({ onBack }: VideocallScreenProps) {
   const [calls] = useState<ScheduledCall[]>(mockScheduledCalls);
+  const [activeCall, setActiveCall] = useState<ScheduledCall | null>(null);
+  const [isInCall, setIsInCall] = useState(false);
 
-  const handleJoinRoom = (call: ScheduledCall) => {
+  const handleJoinRoom = async (call: ScheduledCall) => {
     if (call.status === 'ready') {
-      // Abrir a sala de videochamada
-      window.open(call.roomUrl, '_blank');
+      // Entrar na sala de videochamada integrada
+      setActiveCall(call);
+      setIsInCall(true);
     }
   };
+
+  const handleCallEnd = () => {
+    setIsInCall(false);
+    setActiveCall(null);
+  };
+
+  // Se estiver em chamada, mostrar componente de vídeo
+  if (isInCall && activeCall) {
+    const consultaId = parseInt(activeCall.id);
+    const roomId = `consulta-${consultaId}`;
+    const token = localStorage.getItem('authToken') || '';
+    
+    return (
+      <VideoCallRoom
+        consultaId={consultaId}
+        roomId={roomId}
+        userName="Paciente" // Pegar do contexto do usuário
+        userType="paciente"
+        token={token}
+        onBack={onBack}
+        onCallEnd={handleCallEnd}
+      />
+    );
+  }
 
   const getStatusBadge = (status: ScheduledCall['status']) => {
     switch (status) {
